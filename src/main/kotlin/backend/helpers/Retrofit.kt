@@ -3,7 +3,6 @@ package backend.helpers
 import io.qameta.allure.okhttp3.AllureOkHttp3
 import backend.helpers.Properties.Companion.properties
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -12,9 +11,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory
 import java.time.Duration
 
 object RetrofitClient {
-
-    val HOST: String = if (System.getProperty("HOST").isNullOrBlank()) "https://randomuser.me/"
-    else System.getProperty("HOST")
 
     private val timeout = Duration.ofSeconds(10)
     private val client = OkHttpClient.Builder()
@@ -33,7 +29,7 @@ object RetrofitClient {
 
     fun <T> createService(service: Class<T>): T =
         Retrofit.Builder()
-            .baseUrl(properties().serverHostname)
+            .baseUrl(properties.backendUrl)
             .client(client)
             .addConverterFactory(JacksonConverterFactory.create(ObjectMapper().registerKotlinModule()))
             .build()

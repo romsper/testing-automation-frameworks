@@ -1,8 +1,8 @@
 package org.example.pages.simpleWine
 
 import io.qameta.allure.Step
-import org.example.elements.simpleWine.list.ProductItemHelper
-import org.example.elements.simpleWine.list.CatalogItemObject
+import frontend.elements.list.ProductItemHelper
+import frontend.elements.list.CatalogItemObject
 
 class SearchPage {
     private val productItemHelper get() = ProductItemHelper()

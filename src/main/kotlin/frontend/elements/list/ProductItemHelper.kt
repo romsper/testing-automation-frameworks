@@ -1,12 +1,13 @@
-package org.example.elements.simpleWine.list
+package frontend.elements.list
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide.elements
 import com.codeborne.selenide.SelenideElement
-import frontend.helpers.Wrappers.Companion.byDataTarget
+import frontend.helpers.Wrappers.Companion.byDataTestGroup
+import frontend.helpers.Wrappers.Companion.byDataTestId
 
 class ProductItemHelper {
-    private val listCatalogItems get() = elements(byDataTarget("product-item"))
+    private val listCatalogItems get() = elements(byDataTestGroup("product-item"))
 
     fun getProductItemOLD(): List<CatalogItemObject> {
         listCatalogItems.first().scrollTo()
@@ -32,11 +33,11 @@ class ProductItemHelper {
         return listCatalogItems
             .map {
                 CatalogItemObject(
-                    articul = it.find(byDataTarget("product-item-article")).text,
-                    image = it.find(byDataTarget("product-item-big-image")),
-                    name = it.find(byDataTarget("product-item-name")).text,
-                    price = it.find(byDataTarget("product-item-final-price")).text.filter { it.isDigit() }.toInt(),
-                    btnAddToCart = it.find(byDataTarget("product-item-cart-btn")),
+                    articul = it.find(byDataTestId("product-item-article")).text,
+                    image = it.find(byDataTestId("product-item-big-image")),
+                    name = it.find(byDataTestId("product-item-name")).text,
+                    price = it.find(byDataTestId("product-item-final-price")).text.filter { it.isDigit() }.toInt(),
+                    btnAddToCart = it.find(byDataTestId("product-item-cart-btn")),
                 )
             }
     }

@@ -1,6 +1,7 @@
 package general.listeners
 
 import com.codeborne.selenide.Screenshots
+import com.codeborne.selenide.Selenide
 import io.qameta.allure.Attachment
 import org.junit.platform.engine.TestExecutionResult
 import org.junit.platform.launcher.TestExecutionListener
@@ -11,6 +12,7 @@ class TestListener : TestExecutionListener {
 
     override fun testPlanExecutionStarted(testPlan: TestPlan?) {
         println("|----- START -----|\n")
+//        println("Initializing RemoteWebDriver...").also { InitDriverProvider() } // Read details in InitDriverProvider.kt
     }
 
     override fun executionFinished(testIdentifier: TestIdentifier?, testExecutionResult: TestExecutionResult?) {
@@ -25,6 +27,7 @@ class TestListener : TestExecutionListener {
     }
 
     override fun testPlanExecutionFinished(testPlan: TestPlan?) {
+        Selenide.closeWebDriver()
         println("|----- FINISH -----|")
     }
 

@@ -1,7 +1,7 @@
 package backend.extention
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import io.kotest.assertions.fail
+import io.kotest.assertions.AssertionErrorBuilder.Companion.fail
 import io.qameta.allure.Step
 import retrofit2.Call
 import retrofit2.Response

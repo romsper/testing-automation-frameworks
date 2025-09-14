@@ -1,8 +1,8 @@
 package frontend.helpers
 
+import backend.helpers.Properties.Companion.properties
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.WebDriverProvider
-import backend.helpers.Properties.Companion.properties
 import org.openqa.selenium.Capabilities
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeOptions
@@ -13,10 +13,12 @@ import java.net.URL
 open class InitDriverProvider : WebDriverProvider {
 
     init {
-        Configuration.baseUrl = "https://simplewine.ru"
-        Configuration.browserSize = "1366x768"
+        println("Properties: $properties")
+
         Configuration.timeout = 15000
+        Configuration.pageLoadStrategy = "normal"
         Configuration.reopenBrowserOnFail = true
+        Configuration.baseUrl = properties.frontendUrl
 
 //        Proxy configuration for Selenide
 //        Configuration.proxyEnabled = true
@@ -24,21 +26,35 @@ open class InitDriverProvider : WebDriverProvider {
 //        Configuration.fileDownload = FileDownloadMode.PROXY
     }
 
-    private var SELENOID_HUB_HOST = System.getProperty("SELENOID_HUB_HOST", "localhost")
+    /*
+    Moon doesn't work with normal browsers on ARM64 or MacBooks (Apple Silicon) CPU.
+    So, you can modify the Moon values.yaml file to use the Chromium, etc. images instead.
+    (https://aerokube.com/moon/latest/#install-kubernetes:~:text=Using%20ARM64%2Dcompatible%20browser%20images)
+     */
 
-    override fun createDriver(capabilities: Capabilities): WebDriver {
-        return when (properties().browserName) { // Feel free to use System.getProperty instead of Properties
+    // This is example for Production Ready Chrome browser.
+    override fun createDriver(capabilities: Capabilities): RemoteWebDriver {
+        return when (properties.browserName) {
             "chrome" -> {
                 ChromeOptions().apply {
-                    setCapability("browserVersion", properties().browserVersion) // Upgrade the browser version
-                    setCapability("selenoid:options",
-                        mapOf("enableVNC" to true, "acceptInsecureCerts" to true))
+                    setCapability("browserVersion", properties.browserVersion)
+                    setCapability(
+                        "moon:options",
+                        mapOf(
+                            "headless" to false,
+                            "enableVNC" to true,
+                            "acceptInsecureCerts" to true,
+                            "screenResolution" to "1920x1080"
+                        )
+                    )
                     addArguments("--disable-gpu")
+                    addArguments("window-size=1920,1080")
                 }
             }
+
             else -> throw Error("Browser is not defined")
         }
-            .run { RemoteWebDriver(URL("http://$SELENOID_HUB_HOST:4444/wd/hub"), this) }
+            .run { RemoteWebDriver(URL(properties.moonHost), this) }
             .apply { this.fileDetector = LocalFileDetector() }
     }
 }

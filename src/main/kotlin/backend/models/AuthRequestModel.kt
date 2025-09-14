@@ -13,7 +13,7 @@ data class AuthRequestModel(
         val authRequest: MutableMap<String, RequestBody> = mutableMapOf()
 
         email?.let { email -> authRequest.put("email", RequestBody.create(MultipartBody.FORM, email)) }
-        password.let { password -> authRequest.put("password", RequestBody.create(MultipartBody.FORM, password)) }
+        password?.let { password -> authRequest.put("password", RequestBody.create(MultipartBody.FORM, password)) }
 
         return authRequest
     }
