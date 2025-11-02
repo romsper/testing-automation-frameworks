@@ -9,21 +9,10 @@ import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Tags
 import org.junit.jupiter.api.Test
 
-@Feature("Main page")
-@Story("Image")
-@Tags(Tag("main"), Tag("regress"))
-class MainPageTest : BaseTest() {
-
-    @Test
-    @Severity(SeverityLevel.CRITICAL)
-    @DisplayName("Check main page title")
-    fun checkTitleText() {
-        val title = MainPage()
-            .open()
-            .getTitleText()
-
-        title shouldBe "Welcome to Brew & Bean"
-    }
+@Feature("Popular products")
+@Story("Popular products")
+@Tags(Tag("popular"), Tag("regress"))
+class PopularTest : BaseTest() {
 
     @Test
     @Severity(SeverityLevel.NORMAL)
@@ -53,7 +42,7 @@ class MainPageTest : BaseTest() {
             .quantity
 
         val numberOfProductsInCart = MainPage()
-            .navigateHeader()
+            .navigateToHeader()
             .getNumberOfProductsInCart()
 
         firstProductQuantity shouldBe 1

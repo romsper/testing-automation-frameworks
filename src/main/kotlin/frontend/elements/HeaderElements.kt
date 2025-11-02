@@ -11,12 +11,17 @@ class HeaderElements {
     private val numberOfProductsInCart get() = element(byDataTestId("nav-link-cart-count"))
 
     @Step("Click on header link: {name}")
-    fun clickHeaderLink(name: String): HeaderElements {
-        listLinks.first { it.text == name }.click()
+    fun clickLink(name: String): HeaderElements {
+        listLinks.first { it.text.contains(name) }.click()
         return this
     }
 
-//    @Step("Get number of products in cart")
+    @Step("Navigate to cart")
+    fun navigateToCart(): CartHeaderElements {
+        return CartHeaderElements()
+    }
+
+    @Step("Get number of products in cart")
     fun getNumberOfProductsInCart(): Int {
         return numberOfProductsInCart.text.toInt()
     }

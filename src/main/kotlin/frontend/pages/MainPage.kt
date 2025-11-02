@@ -18,8 +18,8 @@ class MainPage {
         return this
     }
 
-    @Step("Navigate header")
-    fun navigateHeader(): HeaderElements {
+    @Step("Navigate to header")
+    fun navigateToHeader(): HeaderElements {
         return HeaderElements()
     }
 

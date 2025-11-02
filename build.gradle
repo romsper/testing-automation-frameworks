@@ -68,16 +68,6 @@ dependencies {
     //Report
     implementation group: 'io.qameta.allure', name: 'allure-okhttp3', version: allureVersion
     implementation group: 'io.qameta.allure', name: 'allure-junit5', version: allureVersion
-    implementation group: 'io.qameta.allure', name: 'allure-bom', version: allureVersion
-}
 
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17
-    }
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
 }
