@@ -36,7 +36,7 @@ test {
 }
 
 def allureVersion = "2.29.1",
-    junitVersion = "5.13.4",
+    junitVersion = "6.0.1",
     kotestVersion = "6.0.2",
     selenideVersion = '7.10.0',
     retrofit2Version = '3.0.0',
@@ -47,10 +47,8 @@ dependencies {
     implementation group: 'org.aspectj', name: 'aspectjweaver', version: '1.9.22'
 
     //JUnit
-    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: junitVersion
-    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: junitVersion
-    implementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: junitVersion
-    implementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: '1.10.2'
+    implementation group: 'org.junit.jupiter', name: 'junit-jupiter', version: junitVersion
+    implementation group: 'org.junit.platform', name: 'junit-platform-launcher', version: junitVersion
 
     //Assert
     implementation group: 'io.kotest', name: 'kotest-assertions-core-jvm', version: kotestVersion
@@ -69,5 +67,5 @@ dependencies {
     implementation group: 'io.qameta.allure', name: 'allure-okhttp3', version: allureVersion
     implementation group: 'io.qameta.allure', name: 'allure-junit5', version: allureVersion
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.10.2'
 }
