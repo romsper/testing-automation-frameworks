@@ -57,7 +57,6 @@ dependencies {
 tasks.test {
     jvmArgs = listOf("-javaagent:${agent.singleFile}")
 
-    // Use Gradle providers to read system properties safely for Configuration Cache
     val tags = providers.systemProperty("TAGS")
     useJUnitPlatform {
         if (tags.isPresent) {
@@ -71,8 +70,4 @@ tasks.test {
 
     val properties = System.getProperties().entries.associate { it.key.toString() to it.value }
     systemProperties(properties)
-
-    doLast {
-
-    }
 }
